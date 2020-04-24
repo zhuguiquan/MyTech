@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -31,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -78,7 +80,14 @@ public class MainActivity extends BaseActivity<TechPresenter> {
     @BindView(R.id.rg)
     RadioGroup rg;
     List<Fragment> fglist = new ArrayList<>();
+    @BindView(R.id.cont)
+    LinearLayout cont;
+    @BindView(R.id.menu)
+    RelativeLayout menu;
+    @BindView(R.id.drawer)
+    DrawerLayout drawer;
     private SharedPreferences sp;
+
     @Override
     protected void initData() {
         //添加数据
@@ -135,16 +144,16 @@ public class MainActivity extends BaseActivity<TechPresenter> {
         rg.check(rg.getChildAt(0).getId());
         vp.setCurrentItem(0);
         sp = getSharedPreferences("login.dp", MODE_PRIVATE);
-        if (sp.getBoolean("b",false)){
+        if (sp.getBoolean("b", false)) {
             ll.setVisibility(View.GONE);
             rl.setVisibility(View.VISIBLE);
             int uid = sp.getInt("uid", -1);
             String sid = sp.getString("sid", "");
             HashMap<String, Object> map = new HashMap<>();
-            map.put("userId",uid);
-            map.put("sessionId",sid);
-            mPresenter.getHeadParams(MyUrls.BASE_BYID, UserInfoBean.class,map);
-        }else {
+            map.put("userId", uid);
+            map.put("sessionId", sid);
+            mPresenter.getHeadParams(MyUrls.BASE_BYID, UserInfoBean.class, map);
+        } else {
             ll.setVisibility(View.VISIBLE);
             rl.setVisibility(View.GONE);
         }
@@ -152,6 +161,31 @@ public class MainActivity extends BaseActivity<TechPresenter> {
 
     @Override
     protected void initView() {
+        //关闭菜单栏
+        getSupportActionBar().hide();
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                //主内容随着菜单移动
+                int width = drawerView.getWidth();
+                cont.setTranslationX(width*slideOffset);
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
 
     }
 
@@ -172,9 +206,9 @@ public class MainActivity extends BaseActivity<TechPresenter> {
 
     @Override
     public void onSuccess(Object o) {
-        if (o instanceof UserInfoBean&& TextUtils.equals("0000",((UserInfoBean) o).getStatus())){
+        if (o instanceof UserInfoBean && TextUtils.equals("0000", ((UserInfoBean) o).getStatus())) {
             UserInfoBean.ResultBean result = ((UserInfoBean) o).getResult();
-            NetUtil.getInstance().getCiclePhoto(result.getHeadPic(),headPic);
+            NetUtil.getInstance().getCiclePhoto(result.getHeadPic(), headPic);
             name.setText(result.getNickName());
             dersign.setText(result.getSignature());
         }
@@ -196,4 +230,6 @@ public class MainActivity extends BaseActivity<TechPresenter> {
                 break;
         }
     }
+
+
 }
