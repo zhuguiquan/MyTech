@@ -82,7 +82,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
-            android:src="@drawable/weixin_copy"
+            android:src="@drawable/weixin"
             android:id="@+id/login_weixin"></ImageView>
         <ImageView
             android:onClick="hrlogin"
