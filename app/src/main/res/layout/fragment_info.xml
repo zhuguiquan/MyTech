@@ -5,6 +5,9 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".view.fragment.InfoFragment">
+
+
+    
     <RelativeLayout
         android:background="#DCDADA"
         android:layout_width="match_parent"
