@@ -11,7 +11,18 @@ public interface MyUrls {
     String BASE_LOGIN="techApi/user/v1/login";
     String REGISTER_URL = "techApi/user/v1/register";//注册  post请求 参数 phone nickName pwd（加密后的）
     String BASE_BYID = "techApi/user/verify/v1/getUserInfoByUserId";//根据用户id查询信息  getHeader请求
-
+    String CONSULT_BANNER="techApi/information/v1/bannerShow";//轮播图展示 get无参
+    String CONSULT_CONSULTLIST="techApi/information/v1/infoRecommendList";//资讯推荐列表展示
+    String CONSULT_DETAILS="techApi/information/v1/findInformationDetails";//资讯详情展示
+    String CONSULT_MODULE="techApi/information/v1/findAllInfoPlate";//所有板块查询
+    String CONSULT_SHARE="techApi/information/v1/updateInfoShareNum";//资讯分享
+    String CONSULT_DIANZAN="techApi/information/verify/v1/addGreatRecord";//资讯点赞
+    String CONSULT_CANCEL="techApi/user/verify/v1/cancelCollection";//取消点赞
+    String CONSULT_COMMENT="techApi/information/verify/v1/addInfoComment";//评论
+    String CONSULT_COMMENTLIST="techApi/information/v1/findAllInfoCommentList";//资讯评论列表
+    String CONSULT_TITLE="techApi/information/v1/findInformationByTitle";//根据标题模糊查询
+    String CONSULT_ADVERTISING="techApi/information/v1/findInfoAdvertising";//资讯广告
+    String CONSULT_INTEGRAL="techApi/information/verify/v1/infoPayByIntegral";//积分兑换
 
 
 }

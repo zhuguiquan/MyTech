@@ -53,6 +53,7 @@ public class LoginActivity extends BaseActivity<TechPresenter> {
     protected void initView() {
         getSupportActionBar().hide();
         sp = getSharedPreferences("login.dp", MODE_PRIVATE);
+
     }
 
     @Override

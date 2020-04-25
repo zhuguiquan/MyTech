@@ -1,29 +1,162 @@
 package com.wd.tech.view.fragment;
 
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wd.tech.R;
+import com.wd.tech.base.BaseFragment;
+import com.wd.tech.bean.ConsultAdverBean;
+import com.wd.tech.bean.ConsultCommentBean;
+import com.wd.tech.bean.ConsultListBean;
+import com.wd.tech.bean.XBannerBean;
+import com.wd.tech.presenter.TechPresenter;
+import com.wd.tech.view.activity.FindPlateActivity;
+import com.wd.tech.view.adapter.ConsultAdapter;
+import com.wd.tech.weight.MyUrls;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ConsultFragment extends Fragment {
+public class ConsultFragment extends BaseFragment<TechPresenter> {
 
-    public ConsultFragment() {
-        // Required empty public constructor
-    }
-
+    @BindView(R.id.img_mokuan)
+    SimpleDraweeView imgMokuan;
+    @BindView(R.id.beijingeses)
+    TextView beijingeses;
+    @BindView(R.id.home_sousuo)
+    SimpleDraweeView homeSousuo;
+    @BindView(R.id.home_xrecyclerview)
+    RecyclerView homeXrecyclerview;
+    @BindView(R.id.shouye_smart)
+    SmartRefreshLayout shouyeSmart;
+    private List<XBannerBean.ResultBean> banner;
+    int page=1;
+    private List<ConsultListBean.ResultBean> consultlist;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_consult, container, false);
+    protected void initView(View view) {
+
     }
+
+    @Override
+    protected TechPresenter providePresenter() {
+        return new TechPresenter();
+    }
+
+    @Override
+    protected int layoutId() {
+        return R.layout.fragment_consult;
+    }
+
+    @Override
+    protected void initData() {
+        SharedPreferences sp = getActivity().getSharedPreferences("login.dp", Context.MODE_PRIVATE);
+        int uid = sp.getInt("uid", -1);
+        String sid = sp.getString("sid", "");
+        mPresenter.getNoParams(MyUrls.CONSULT_BANNER,XBannerBean.class);
+        HashMap<String,Object> map=new HashMap<>();
+        map.put("plateId",0);
+        map.put("page",1);
+        map.put("count",5);
+        mPresenter.getDoParams(MyUrls.CONSULT_CONSULTLIST,ConsultListBean.class,map);
+        //下拉刷新，上啦加载
+        shouyeSmart.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page = 1;
+                mPresenter.getNoParams(MyUrls.CONSULT_BANNER,XBannerBean.class);
+                mPresenter.getDoParams(MyUrls.CONSULT_CONSULTLIST,ConsultListBean.class,map);
+                shouyeSmart.finishRefresh(2000/*,false*/);
+            }
+        });
+
+        shouyeSmart.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                mPresenter.getNoParams(MyUrls.CONSULT_BANNER,XBannerBean.class);
+                mPresenter.getDoParams(MyUrls.CONSULT_CONSULTLIST,ConsultListBean.class,map);
+                shouyeSmart.finishLoadMore(2000);
+            }
+        });
+
+    }
+
+    @Override
+    protected void DestroyFragment() {
+
+    }
+
+    @Override
+    public void onSuccess(Object o) {
+
+        if (o instanceof XBannerBean) {
+            if (((XBannerBean)o).getStatus().equals("0000")){
+                banner = ((XBannerBean) o).getResult();
+
+                Log.e("xxx","轮播图"+banner);
+            }
+        }
+
+
+        if (o instanceof ConsultListBean) {
+            if (((ConsultListBean)o).getStatus().equals("0000")){
+                consultlist= ((ConsultListBean) o).getResult();
+
+                //使用多列表展示
+                LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+                linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                homeXrecyclerview.setLayoutManager(linearLayoutManager);
+                ConsultAdapter consultAdapter = new ConsultAdapter(banner,consultlist,getContext());
+                homeXrecyclerview.setAdapter(consultAdapter);
+
+                Log.e("aaa","资讯列表"+((ConsultListBean)o).getStatus());
+            }
+        }
+
+
+
+    }
+
+    @Override
+    public void onFailure(Throwable e) {
+
+
+    }
+
+    @OnClick({R.id.img_mokuan, R.id.home_sousuo})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.img_mokuan:
+                startActivity(new Intent(getContext(), FindPlateActivity.class));
+                break;
+            case R.id.home_sousuo:
+
+
+                break;
+        }
+    }
+
+
 }

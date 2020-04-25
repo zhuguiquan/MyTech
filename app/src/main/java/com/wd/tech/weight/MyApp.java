@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 
 import com.example.arclibrary.builder.AcrFaceManagerBuilder;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.wd.tech.Constants;
 
 /**
@@ -19,6 +20,7 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fresco.initialize(this);
         mContext=this;
     }
     private void initArcFace() {
