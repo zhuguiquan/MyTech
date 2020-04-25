@@ -42,7 +42,8 @@ public class LinkManFragment extends BaseFragment<TechPresenter> {
         //查询所有分组
         mPresenter.getNoParams(MyUrls.BASE_FIND_ALLGROUP, FriendGroupBean.class);
         linkManRc.setLayoutManager(new LinearLayoutManager(getContext()));
-        //
+
+        //群组
         query.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
