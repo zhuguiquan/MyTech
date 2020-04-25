@@ -23,6 +23,16 @@ public interface MyUrls {
     String CONSULT_TITLE="techApi/information/v1/findInformationByTitle";//根据标题模糊查询
     String CONSULT_ADVERTISING="techApi/information/v1/findInfoAdvertising";//资讯广告
     String CONSULT_INTEGRAL="techApi/information/verify/v1/infoPayByIntegral";//积分兑换
+    //微信登录
+    String WEIXINLOG_URL="techApi/user/v1/weChatLogin";
+    //查询好友通知
+    String BASE_FRIEND_NOTICE="techApi/chat/verify/v1/findFriendNoticePageList";
+    //查询分组
+    String BASE_FIND_ALLGROUP="techApi/chat/verify/v1/findFriendGroupList";
+    //查询分组下所有好友信息
+    String BASE_FINDMAN_BYGROUP="techApi/chat/verify/v1/findFriendListByGroupId";
+    //查询我的好友列表 get searchName
+    String BASE_FIND_FRIEND="techApi/chat/verify/v1/searchFriend";
 
 
 }
