@@ -38,7 +38,14 @@ android {
             jni.srcDirs = []    //disable automatic ndk-build
         }
     }
-
+    signingConfigs { //在android代码块下写
+        debug {//这个地方可以写成 release
+            storeFile file('tech.keystore')
+            keyAlias "tech"
+            storePassword "123456"
+            keyPassword "123456"
+        }
+    }
 }
 
 dependencies {
@@ -90,6 +97,12 @@ dependencies {
 //人脸
     implementation 'com.github.tyhjh:PermissionUtil:v1.0.5'
     implementation 'com.github.tyhjh:picturePickUtil:v1.0.6'
+    //微信
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
+
+//swipe
+    compile 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+
 
     //SimpleDraweeView图片
     implementation 'com.facebook.fresco:fresco:1.9.0'

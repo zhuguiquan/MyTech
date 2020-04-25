@@ -102,6 +102,22 @@ public class TechModel implements TechContract.IModel {
             }
         });
     }
+
+    @Override
+    public void postDoHeadParams(String url, Class cls, HashMap<String, Object> head, HashMap<String, Object> map, TechContract.IModelCallback iModelCallback) {
+        NetUtil.getInstance().postDoHeadParams(url, cls, head, map, new NetUtil.ICallback() {
+            @Override
+            public void onSuccess(Object o) {
+                iModelCallback.onSuccess(o);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                iModelCallback.onFailure(e);
+            }
+        });
+    }
+
     @Override
     public void putNoParams(String url, Class cls, final TechContract.IModelCallback iModelCallback) {
         NetUtil.getInstance().putNoParams(url, cls, new NetUtil.ICallback() {

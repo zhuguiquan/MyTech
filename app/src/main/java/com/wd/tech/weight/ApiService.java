@@ -39,6 +39,10 @@ public interface ApiService {
     Observable<ResponseBody> postNoParams(@Url String url);
     @POST //post有参
     @FormUrlEncoded
+    Observable<ResponseBody> postDoHeadParams(@Url String url, @HeaderMap HashMap<String, Object> head, @FieldMap HashMap<String, Object> map);
+
+    @POST //post有参
+    @FormUrlEncoded
     Observable<ResponseBody> postDoParams(@Url String url, @FieldMap HashMap<String, Object> map);
     @PUT //put 有参
     @FormUrlEncoded
