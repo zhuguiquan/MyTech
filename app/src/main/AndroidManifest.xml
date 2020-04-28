@@ -2,13 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wd.tech">
 
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".weight.MyApp"
         android:allowBackup="true"
@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.ChannelActivity"></activity>
+        <activity android:name=".view.activity.SearchListActivity"></activity>
+        <activity android:name=".view.activity.SearchActivity" />
+        <activity android:name=".view.activity.ChannelActivity" />
         <activity android:name=".view.activity.FindPlateActivity" />
         <activity android:name=".view.activity.DetailActivity" />
         <activity android:name=".view.activity.MainActivity" />
@@ -30,7 +32,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".arc.LivenessActivity" />
-        <activity android:name=".wxapi.WXEntryActivity" android:exported="true"></activity>
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

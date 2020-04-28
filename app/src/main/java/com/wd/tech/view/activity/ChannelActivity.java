@@ -12,12 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
-import com.wd.tech.bean.ConsultCommentBean;
-import com.wd.tech.bean.ConsultCommentListBean;
 import com.wd.tech.bean.ConsultListBean;
-import com.wd.tech.bean.ConsultTitleBean;
 import com.wd.tech.presenter.TechPresenter;
-import com.wd.tech.view.adapter.ConsultAdapter;
 import com.wd.tech.view.adapter.RecommendListAdapter;
 import com.wd.tech.weight.MyUrls;
 import com.wd.tech.weight.OnClickItem;

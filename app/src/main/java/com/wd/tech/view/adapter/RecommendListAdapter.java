@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +33,7 @@ import butterknife.ButterKnife;
 public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdapter.RecommendViewHolder> {
 
     private List<ConsultListBean.ResultBean> consultlist;
-
+    private int xin=1;
     public RecommendListAdapter( List<ConsultListBean.ResultBean> consultlist) {
 
         this.consultlist = consultlist;
@@ -68,6 +69,8 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
 
             holder.itemCollection.setText(resultBean.getCollection()+"");
             holder.itemShare.setText(resultBean.getShare()+"");
+
+
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +84,24 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
                 }
             }
         });
+        holder.itemCollectionImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (xin==1){
+                    holder.itemCollectionImage.setImageResource(R.drawable.dianzan_hong);
+                    xin=2;
+                    resultBean.setWhetherCollection(1);
+                    Toast.makeText(holder.itemView.getContext(), "收藏成功", Toast.LENGTH_SHORT).show();
+                }else {
+                    holder.itemCollectionImage.setImageResource(R.drawable.dianzan_hei);
+                    xin=1;
+                    resultBean.setWhetherCollection(2);
+                    Toast.makeText(holder.itemView.getContext(), "取消收藏", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
 
     }
 

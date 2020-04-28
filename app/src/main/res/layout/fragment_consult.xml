@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".view.fragment.ConsultFragment">
@@ -41,10 +42,32 @@
         android:id="@+id/shouye_smart"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/home_xrecyclerview"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="match_parent">
+
+            <com.stx.xhb.androidx.XBanner
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_20"
+                app:pointsVisibility="false"
+                android:layout_height="@dimen/dp_160"
+                android:id="@+id/consult_tab"></com.stx.xhb.androidx.XBanner>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_xrecyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
 
 </LinearLayout>
