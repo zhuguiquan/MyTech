@@ -98,7 +98,7 @@ public class LinkManFragment extends BaseFragment<TechPresenter> {
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("groupId",groupId);
                         //查询分组下所有好友
-                        mPresenter.getDoParams(MyUrls.BASE_FINDMAN_BYGROUP, FriendListBean.class,map);
+                       mPresenter.getDoParams(MyUrls.BASE_FINDMAN_BYGROUP, FriendListBean.class,map);
                     }
                 });
                 linkManRc.setAdapter(friendGroupAdapter);

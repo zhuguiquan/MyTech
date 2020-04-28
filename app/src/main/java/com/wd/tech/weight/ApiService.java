@@ -5,6 +5,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
@@ -15,6 +16,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
@@ -34,12 +36,16 @@ public interface ApiService {
     @POST //post头像
     @Multipart
     Observable<ResponseBody> postDoHeadPic(@Url String url, @Part MultipartBody.Part img);
+    @POST //post 文件
+    @Multipart
+    Observable<ResponseBody> postFileParams(@Url String url,@PartMap HashMap<String, RequestBody> map);
     @POST //post无参
     @FormUrlEncoded
     Observable<ResponseBody> postNoParams(@Url String url);
     @POST //post有参
     @FormUrlEncoded
     Observable<ResponseBody> postDoHeadParams(@Url String url, @HeaderMap HashMap<String, Object> head, @FieldMap HashMap<String, Object> map);
+
 
     @POST //post有参
     @FormUrlEncoded
@@ -54,4 +60,6 @@ public interface ApiService {
     Observable<ResponseBody> dltNoParams(@Url String url);
     @DELETE //dlt 有参
     Observable<ResponseBody> dltDoParams(@Url String url, @QueryMap HashMap<String, Object> map);
+
+
 }

@@ -1,5 +1,6 @@
 package com.wd.tech.view.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +23,7 @@ import com.wd.tech.base.BaseActivity;
 import com.wd.tech.bean.UserInfoBean;
 import com.wd.tech.presenter.TechPresenter;
 import com.wd.tech.util.NetUtil;
+import com.wd.tech.view.activity.my.SheActivity;
 import com.wd.tech.view.fragment.CommunityFragment;
 import com.wd.tech.view.fragment.ConsultFragment;
 import com.wd.tech.view.fragment.InfoFragment;
@@ -32,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import butterknife.OnClick;
 
 
@@ -86,6 +88,20 @@ public class MainActivity extends BaseActivity<TechPresenter> {
     RelativeLayout menu;
     @BindView(R.id.drawer)
     DrawerLayout drawer;
+    @BindView(R.id.my_shoucang)
+    TextView myShoucang;
+    @BindView(R.id.my_guanzhu)
+    TextView myGuanzhu;
+    @BindView(R.id.my_tiezi)
+    TextView myTiezi;
+    @BindView(R.id.my_tongzhi)
+    TextView myTongzhi;
+    @BindView(R.id.my_jifen)
+    TextView myJifen;
+    @BindView(R.id.my_renwu)
+    TextView myRenwu;
+    @BindView(R.id.my_shezhi)
+    TextView myShezhi;
     private SharedPreferences sp;
 
     @Override
@@ -143,6 +159,13 @@ public class MainActivity extends BaseActivity<TechPresenter> {
         //默认页面
         rg.check(rg.getChildAt(0).getId());
         vp.setCurrentItem(0);
+        Intent intent = getIntent();
+        boolean bb = intent.getBooleanExtra("bb", false);
+        if(bb){
+            rg.check(rg.getChildAt(2).getId());
+            vp.setCurrentItem(2);
+        }
+
         sp = getSharedPreferences("login.dp", MODE_PRIVATE);
         if (sp.getBoolean("b", false)) {
             ll.setVisibility(View.GONE);
@@ -161,6 +184,7 @@ public class MainActivity extends BaseActivity<TechPresenter> {
 
     @Override
     protected void initView() {
+
         //关闭菜单栏
         getSupportActionBar().hide();
         drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
@@ -168,7 +192,7 @@ public class MainActivity extends BaseActivity<TechPresenter> {
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
                 //主内容随着菜单移动
                 int width = drawerView.getWidth();
-                cont.setTranslationX(width*slideOffset);
+                cont.setTranslationX(width * slideOffset);
             }
 
             @Override
@@ -220,17 +244,32 @@ public class MainActivity extends BaseActivity<TechPresenter> {
     }
 
 
-    @OnClick({R.id.login_iv, R.id.login})
+    @OnClick({R.id.login_iv, R.id.login, R.id.my_shoucang, R.id.my_guanzhu, R.id.my_tiezi, R.id.my_tongzhi, R.id.my_jifen, R.id.my_renwu, R.id.my_shezhi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.login_iv:
-
+            case R.id.login_iv://我的头像
                 break;
             case R.id.login:
                 startActivity(this, LoginActivity.class);
                 break;
+            case R.id.my_shoucang:
+                break;
+            case R.id.my_guanzhu:
+                break;
+            case R.id.my_tiezi:
+                break;
+            case R.id.my_tongzhi:
+                break;
+            case R.id.my_jifen:
+                break;
+            case R.id.my_renwu:
+                break;
+            case R.id.my_shezhi:
+              startActivity(this, SheActivity.class);
+                break;
         }
     }
+
 
 
 }

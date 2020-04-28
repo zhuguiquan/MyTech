@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
+import com.wd.tech.base.BaseHuaActivity;
 import com.wd.tech.bean.ConsultModuleBean;
 import com.wd.tech.presenter.TechPresenter;
 import com.wd.tech.view.adapter.FindPlateAdapter;
@@ -18,7 +19,7 @@ import com.wd.tech.weight.OnClickItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FindPlateActivity extends BaseActivity<TechPresenter> {
+public class FindPlateActivity extends BaseHuaActivity<TechPresenter> {
 
     @BindView(R.id.plate_recycler)
     RecyclerView plateRecycler;

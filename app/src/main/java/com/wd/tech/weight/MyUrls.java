@@ -33,6 +33,20 @@ public interface MyUrls {
     String BASE_FINDMAN_BYGROUP="techApi/chat/verify/v1/findFriendListByGroupId";
     //查询我的好友列表 get searchName
     String BASE_FIND_FRIEND="techApi/chat/verify/v1/searchFriend";
+    //社区列表
+    String BASE_COMMUNITYLIST="techApi/community/v1/findCommunityList";
+    //点赞
+    String BASE_COMMUNITY_ZAN="techApi/community/verify/v1/addCommunityGreat";
+    //取消点赞
+    String BASE_DELETE_ZAN="techApi/community/verify/v1/cancelCommunityGreat";
+    //发表帖子
+    String BASE_POST="techApi/community/verify/v1/releasePost";
+    //社区用户评论列表
+    String BASE_COMMUNI_PL="techApi/community/v1/findCommunityUserCommentList";
+    //社区评论
+    String BASE_FILM="techApi/community/verify/v1/addCommunityComment";
+    //查询用户帖子
+    String BASE_USER_COM="techApi/community/verify/v1/findUserPostById";
 
 
 }

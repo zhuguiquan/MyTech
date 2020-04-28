@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
+import com.abner.ming.SlideFinishManager;
 import com.example.arclibrary.builder.AcrFaceManagerBuilder;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -24,6 +25,8 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //侧滑关闭
+        SlideFinishManager.getInstance().init(this);
         Fresco.initialize(this);
         registerTowX();
         mContext=this;

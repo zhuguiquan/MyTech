@@ -7,6 +7,7 @@ import com.wd.tech.model.TechModel;
 import java.util.HashMap;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * date:2020/4/18
@@ -54,7 +55,7 @@ public class TechPresenter extends BasePresenter<TechContract.IView> implements 
 
     @Override
     public void getHeadParams(String url, Class cls, HashMap<String, Object> map) {
-        techModel.getDoParams(url, cls, map, new TechContract.IModelCallback() {
+        techModel.getHeadParams(url, cls, map, new TechContract.IModelCallback() {
             @Override
             public void onSuccess(Object o) {
                 getView().onSuccess(o);
@@ -70,6 +71,21 @@ public class TechPresenter extends BasePresenter<TechContract.IView> implements 
     @Override
     public void postDoHeadPic(String url, Class cls, MultipartBody.Part image) {
         techModel.postDoHeadPic(url, cls, image, new TechContract.IModelCallback() {
+            @Override
+            public void onSuccess(Object o) {
+                getView().onSuccess(o);
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+                getView().onFailure(e);
+            }
+        });
+    }
+
+    @Override
+    public void postFileParams(String url, Class cls, HashMap<String, RequestBody> map) {
+        techModel.postFileParams(url, cls, map, new TechContract.IModelCallback() {
             @Override
             public void onSuccess(Object o) {
                 getView().onSuccess(o);
