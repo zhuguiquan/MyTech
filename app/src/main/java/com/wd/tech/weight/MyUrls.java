@@ -19,6 +19,8 @@ public interface MyUrls {
     String CONSULT_DIANZAN="techApi/information/verify/v1/addGreatRecord";//资讯点赞
     String CONSULT_CANCEL="techApi/user/verify/v1/cancelCollection";//取消点赞
     String CONSULT_COMMENT="techApi/information/verify/v1/addInfoComment";//评论
+    String Base_Collecation="techApi/user/verify/v1/addCollection";//收藏  post  infoId
+    String Base_Cancal_Collecation="techApi/user/verify/v1/cancelCollection";//取消收藏  delete infoId
     String CONSULT_COMMENTLIST="techApi/information/v1/findAllInfoCommentList";//资讯评论列表
     String CONSULT_TITLE="techApi/information/v1/findInformationByTitle";//根据标题模糊查询
     String CONSULT_ADVERTISING="techApi/information/v1/findInfoAdvertising";//资讯广告

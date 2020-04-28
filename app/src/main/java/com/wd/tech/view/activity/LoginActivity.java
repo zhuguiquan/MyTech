@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.wd.tech.R;
 import com.wd.tech.arc.LivenessActivity;
@@ -106,16 +107,14 @@ public class LoginActivity extends BaseActivity<TechPresenter> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_weixin:
-                if (!MyApp.mWxApi.isWXAppInstalled()) {
-                    Toast.makeText(this, "没有安装微信", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                final SendAuth.Req req = new SendAuth.Req();
-                req.scope = "snsapi_userinfo";
-                req.state = "diandi_wx_login";
-                MyApp.mWxApi.sendReq(req);
-
+               if (MyApp.mWxApi.isWXAppInstalled()){
+                   Toast.makeText(this, "没有安装微信", Toast.LENGTH_SHORT).show();
+                   return;
+               }
+                SendAuth.Req req = new SendAuth.Req();
+               req.scope="snsapi_userinfo";
+               req.state="diandi_wx_login";
+               MyApp.mWxApi.sendReq(req);
                 break;
             case R.id.eye:
                 break;
