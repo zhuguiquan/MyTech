@@ -207,7 +207,8 @@ public class ConsultFragment extends BaseFragment<TechPresenter> {
                 startActivity(new Intent(getContext(), FindPlateActivity.class));
                 break;
             case R.id.home_sousuo:
-                startActivity(new Intent(getContext(), SearchActivity.class));
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
                 break;
         }
     }

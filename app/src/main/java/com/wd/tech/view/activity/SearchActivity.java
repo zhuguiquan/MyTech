@@ -1,7 +1,7 @@
 package com.wd.tech.view.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -13,7 +13,6 @@ import com.wd.tech.base.BaseActivity;
 import com.wd.tech.presenter.TechPresenter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cc.ibooker.zflowlayoutlib.FlowLayout;
 
@@ -76,19 +75,11 @@ public class SearchActivity extends BaseActivity<TechPresenter> {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     @OnClick({R.id.shousuo, R.id.tv_finish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.shousuo:
                 startActivity(new Intent(this, SearchListActivity.class));
-
                 break;
             case R.id.tv_finish:
                 finish();
