@@ -55,7 +55,6 @@ public class FindCommentAdapter extends RecyclerView.Adapter<FindCommentAdapter.
         holder.commlistTime.setText(format);
         //内容
         holder.commlistContent.setText(resultBean.getContent());
-
     }
 
     @Override

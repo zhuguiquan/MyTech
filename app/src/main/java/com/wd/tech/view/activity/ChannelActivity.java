@@ -17,6 +17,7 @@ import com.wd.tech.presenter.TechPresenter;
 import com.wd.tech.view.adapter.RecommendListAdapter;
 import com.wd.tech.weight.MyUrls;
 import com.wd.tech.weight.OnClickItem;
+import com.wd.tech.weight.OnRecyclerItemClickListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -82,16 +83,17 @@ public class ChannelActivity extends BaseActivity<TechPresenter> {
             RecommendListAdapter consultAdapter = new RecommendListAdapter(result);
             channelRecycler.setLayoutManager(linearLayoutManager);
             channelRecycler.setAdapter(consultAdapter);
-            consultAdapter.setOnClickItem(new OnClickItem() {
+            consultAdapter.setListener(new OnRecyclerItemClickListener() {
                 @Override
-                public void onClickInt(int id) {
+                public void onItemClick(String s) {
+                    int i = Integer.parseInt(s);
                     Intent intent = new Intent(ChannelActivity.this, DetailActivity.class);
-                    intent.putExtra("id", id);
+                    intent.putExtra("id",i);
                     startActivity(intent);
                 }
 
                 @Override
-                public void onClickString(String string) {
+                public void onLongItemClick(String s) {
 
                 }
             });

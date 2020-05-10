@@ -1,6 +1,5 @@
 package com.wd.tech.view.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.wd.tech.R;
 import com.wd.tech.bean.ConsultListBean;
+import com.wd.tech.util.GlideUtils;
 import com.wd.tech.util.NetUtil;
 import com.wd.tech.weight.OnClickItem;
+import com.wd.tech.weight.OnRecyclerItemClickListener;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -33,8 +35,8 @@ import butterknife.ButterKnife;
 public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdapter.RecommendViewHolder> {
 
     private List<ConsultListBean.ResultBean> consultlist;
-    private int xin=1;
-    public RecommendListAdapter( List<ConsultListBean.ResultBean> consultlist) {
+
+    public RecommendListAdapter(List<ConsultListBean.ResultBean> consultlist) {
 
         this.consultlist = consultlist;
     }
@@ -50,53 +52,60 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
     @Override
     public void onBindViewHolder(@NonNull RecommendViewHolder holder, int position) {
         ConsultListBean.ResultBean resultBean = consultlist.get(position);
-        if (resultBean.getWhetherAdvertising()==1){
+        if (resultBean.getWhetherAdvertising() == 1) {
             holder.itemRela1.setVisibility(View.VISIBLE);
             holder.itemRela2.setVisibility(View.GONE);
             ConsultListBean.ResultBean.InfoAdvertisingVoBean infoAdvertisingVo = resultBean.getInfoAdvertisingVo();
-            NetUtil.getInstance().getPhoto(infoAdvertisingVo.getPic(),holder.consultItemImage);
-        }else {
+            GlideUtils.getPhoto(infoAdvertisingVo.getPic(), holder.consultItemImage);
+        } else {
             holder.itemRela1.setVisibility(View.GONE);
             holder.itemRela2.setVisibility(View.VISIBLE);
-            NetUtil.getInstance().getPhoto(resultBean.getThumbnail(),holder.itemImage);
+            Glide.with(holder.itemView.getContext()).load(resultBean.getThumbnail())
+                    .placeholder(R.drawable.null_pho)
+                    .error(R.drawable.null_pho)
+                    .into(holder.itemImage);
             holder.itemTitle.setText(resultBean.getTitle());
-            String substring = resultBean.getSummary().substring(0, 20);
-            holder.itemSummary.setText(substring+"...");
+
+            holder.itemSummary.setText(resultBean.getSummary());
+
             holder.itemSource.setText(resultBean.getSource());
+
             SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("M月dd日");
             String format = simpleDateFormat1.format(resultBean.getReleaseTime());
             holder.itemTime.setText(format);
 
-            holder.itemCollection.setText(resultBean.getCollection()+"");
-            holder.itemShare.setText(resultBean.getShare()+"");
-
-
-        }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (resultBean.getWhetherAdvertising()==1){
-                    ConsultListBean.ResultBean.InfoAdvertisingVoBean infoAdvertisingVo = resultBean.getInfoAdvertisingVo();
-                    int id = infoAdvertisingVo.getId();
-                    onClickItem.onClickInt(id);
-                }else {
-                    onClickItem.onClickInt(resultBean.getId());
-                }
+            holder.itemCollection.setText(resultBean.getCollection() + "");
+            holder.itemShare.setText(resultBean.getShare() + "");
+            if (resultBean.getWhetherPay()==1){
+                holder.itemCollectionPay.setVisibility(View.VISIBLE);
+            }else {
+                holder.itemCollectionPay.setVisibility(View.GONE);
             }
-        });
+        }
+
+
+
+
         holder.itemCollectionImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (xin==1){
+                if (resultBean.getWhetherCollection() == 1) {
                     holder.itemCollectionImage.setImageResource(R.drawable.dianzan_hong);
-                    xin=2;
-                    resultBean.setWhetherCollection(1);
-                    Toast.makeText(holder.itemView.getContext(), "收藏成功", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     holder.itemCollectionImage.setImageResource(R.drawable.dianzan_hei);
-                    xin=1;
-                    resultBean.setWhetherCollection(2);
-                    Toast.makeText(holder.itemView.getContext(), "取消收藏", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (resultBean.getWhetherAdvertising() == 1) {
+                    ConsultListBean.ResultBean.InfoAdvertisingVoBean infoAdvertisingVo = resultBean.getInfoAdvertisingVo();
+                    int id = infoAdvertisingVo.getId();
+                    listener.onItemClick(id+"");
+                } else {
+                    listener.onItemClick(resultBean.getId() + "");
                 }
             }
         });
@@ -121,6 +130,8 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         TextView itemSource;
         @BindView(R.id.item_time)
         TextView itemTime;
+        @BindView(R.id.item_collection_pay)
+        ImageView itemCollectionPay;
         @BindView(R.id.item_collection_image)
         ImageView itemCollectionImage;
         @BindView(R.id.item_collection)
@@ -137,16 +148,17 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         RelativeLayout itemRela1;
         @BindView(R.id.consult_list_click)
         LinearLayout consultListClick;
+
         public RecommendViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
 
-    OnClickItem onClickItem;
+    OnRecyclerItemClickListener listener;
 
-    public void setOnClickItem(OnClickItem onClickItem) {
-        this.onClickItem = onClickItem;
+    public void setListener(OnRecyclerItemClickListener listener) {
+        this.listener = listener;
     }
 
 }

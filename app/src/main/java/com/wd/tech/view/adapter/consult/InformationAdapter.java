@@ -13,6 +13,7 @@ import com.wd.tech.R;
 import com.wd.tech.bean.ConsultParticularsBean;
 import com.wd.tech.util.NetUtil;
 import com.wd.tech.weight.OnClickItem;
+import com.wd.tech.weight.OnRecyclerItemClickListener;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickItem.onClickInt(info.getId());
+                listener.onItemClick(info.getId()+"");
             }
         });
 
@@ -72,11 +73,10 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         }
     }
 
-    //接口回调
-    OnClickItem onClickItem;
+    OnRecyclerItemClickListener listener;
 
-    public void setOnClickItem(OnClickItem onClickItem) {
-        this.onClickItem = onClickItem;
+    public void setListener(OnRecyclerItemClickListener listener) {
+        this.listener = listener;
     }
 
 }
