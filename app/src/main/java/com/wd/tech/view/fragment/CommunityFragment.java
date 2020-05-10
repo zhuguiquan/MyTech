@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -151,11 +152,23 @@ public class CommunityFragment extends BaseFragment<TechPresenter> {
     }
     //弹出框
     private void showPopupWindow(int id) {
+
         //加载布局
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.popup, null);
         mPopWindow = new PopupWindow(view,
                 ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT, true);
         mPopWindow.setContentView(view);
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mPopWindow != null && mPopWindow.isShowing()) {
+                    mPopWindow.dismiss();
+                    mPopWindow = null;
+                }
+                return false;
+            }
+        });
+
         //设置各个控件的点击响应
         final EditText editText = view.findViewById(R.id.et);
         Button btn = view.findViewById(R.id.bt);

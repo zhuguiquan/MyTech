@@ -21,20 +21,28 @@ import androidx.viewpager.widget.ViewPager;
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.bean.UserInfoBean;
+import com.wd.tech.bean.my.FindSingRecordingBean;
 import com.wd.tech.presenter.TechPresenter;
 import com.wd.tech.util.NetUtil;
+import com.wd.tech.view.activity.my.GuanZhuActivity;
+import com.wd.tech.view.activity.my.MyDateActivity;
+import com.wd.tech.view.activity.my.MyPostActivity;
 import com.wd.tech.view.activity.my.SheActivity;
+import com.wd.tech.view.activity.my.ShoCangActivity;
+import com.wd.tech.view.activity.my.TaskListActivity;
+import com.wd.tech.view.activity.my.TongZhiActivity;
 import com.wd.tech.view.fragment.CommunityFragment;
 import com.wd.tech.view.fragment.ConsultFragment;
 import com.wd.tech.view.fragment.InfoFragment;
 import com.wd.tech.weight.MyUrls;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -102,6 +110,8 @@ public class MainActivity extends BaseActivity<TechPresenter> {
     TextView myRenwu;
     @BindView(R.id.my_shezhi)
     TextView myShezhi;
+    @BindView(R.id.qiandao)
+    ImageView qiandao;
     private SharedPreferences sp;
 
     @Override
@@ -161,7 +171,7 @@ public class MainActivity extends BaseActivity<TechPresenter> {
         vp.setCurrentItem(0);
         Intent intent = getIntent();
         boolean bb = intent.getBooleanExtra("bb", false);
-        if(bb){
+        if (bb) {
             rg.check(rg.getChildAt(2).getId());
             vp.setCurrentItem(2);
         }
@@ -236,6 +246,14 @@ public class MainActivity extends BaseActivity<TechPresenter> {
             name.setText(result.getNickName());
             dersign.setText(result.getSignature());
         }
+        //签到成功
+        if (o instanceof FindSingRecordingBean && TextUtils.equals("0000",((FindSingRecordingBean) o).getStatus())){
+            List<String> result = ((FindSingRecordingBean) o).getResult();
+            Intent intent = new Intent(this,MyDateActivity.class);
+            intent.putExtra("tmd",(Serializable) result);
+            startActivity(intent);
+        }
+
     }
 
     @Override
@@ -244,28 +262,34 @@ public class MainActivity extends BaseActivity<TechPresenter> {
     }
 
 
-    @OnClick({R.id.login_iv, R.id.login, R.id.my_shoucang, R.id.my_guanzhu, R.id.my_tiezi, R.id.my_tongzhi, R.id.my_jifen, R.id.my_renwu, R.id.my_shezhi})
+    @OnClick({ R.id.login, R.id.my_shoucang, R.id.my_guanzhu, R.id.my_tiezi, R.id.my_tongzhi, R.id.my_jifen, R.id.my_renwu, R.id.my_shezhi,R.id.qiandao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.login_iv://我的头像
-                break;
             case R.id.login:
                 startActivity(this, LoginActivity.class);
                 break;
             case R.id.my_shoucang:
+                startActivity(this, ShoCangActivity.class);
                 break;
             case R.id.my_guanzhu:
+                startActivity(this, GuanZhuActivity.class);
                 break;
             case R.id.my_tiezi:
+                startActivity(this, MyPostActivity.class);
                 break;
             case R.id.my_tongzhi:
+                startActivity(this, TongZhiActivity.class);
                 break;
             case R.id.my_jifen:
                 break;
             case R.id.my_renwu:
+                startActivity(this, TaskListActivity.class);
                 break;
             case R.id.my_shezhi:
-              startActivity(this, SheActivity.class);
+                startActivity(this, SheActivity.class);
+                break;
+            case R.id.qiandao://签到MyDateActivity
+                mPresenter.getNoParams(MyUrls.FIND_RECORDING, FindSingRecordingBean.class);
                 break;
         }
     }

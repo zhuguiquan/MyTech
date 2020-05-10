@@ -190,7 +190,7 @@ public class DetailActivity extends BaseActivity<TechPresenter> {
             detailsZanText.setText(result.getPraise() + "");//当前点赞人数
         }
 
-        //评论
+        //评论           ConsultCommentBean
         if(o instanceof ConsultCommentListBean && TextUtils.equals("0000",((ConsultCommentListBean) o).getStatus())){
             List<ConsultCommentListBean.ResultBean> result = ((ConsultCommentListBean) o).getResult();
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -198,6 +198,14 @@ public class DetailActivity extends BaseActivity<TechPresenter> {
             detailsCommentlist.setLayoutManager(linearLayoutManager);
             FindCommentAdapter findCommentAdapter = new FindCommentAdapter(result);
             detailsCommentlist.setAdapter(findCommentAdapter);
+        }
+        if(o instanceof ConsultCommentBean&&TextUtils.equals("0000",((ConsultCommentBean) o).getStatus())){
+            Toast.makeText(this, ""+((ConsultCommentBean) o).getMessage(), Toast.LENGTH_SHORT).show();
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("infoId",id);
+            hashMap.put("page",1);
+            hashMap.put("count",5);
+            mPresenter.getDoParams(MyUrls.CONSULT_COMMENTLIST, ConsultCommentListBean.class,hashMap);
         }
 
     }

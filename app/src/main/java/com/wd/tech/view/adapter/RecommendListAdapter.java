@@ -60,8 +60,8 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
             holder.itemRela2.setVisibility(View.VISIBLE);
             NetUtil.getInstance().getPhoto(resultBean.getThumbnail(),holder.itemImage);
             holder.itemTitle.setText(resultBean.getTitle());
-            String substring = resultBean.getSummary().substring(0, 20);
-            holder.itemSummary.setText(substring+"...");
+
+            holder.itemSummary.setText(resultBean.getSummary());
             holder.itemSource.setText(resultBean.getSource());
             SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("M月dd日");
             String format = simpleDateFormat1.format(resultBean.getReleaseTime());

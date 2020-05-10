@@ -1,8 +1,11 @@
 package com.wd.tech.view.fragment.infomation;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -16,6 +19,7 @@ import com.wd.tech.R;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.bean.infomation.FriendNoticeBean;
 import com.wd.tech.presenter.TechPresenter;
+import com.wd.tech.view.activity.xiaoxi.InfoSelefriendActivity;
 import com.wd.tech.view.adapter.infomation.InfoItAdapter;
 import com.wd.tech.weight.MyUrls;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
@@ -50,6 +54,23 @@ public class InfoItFragment extends BaseFragment<TechPresenter> {
         map.put("page",page);
         map.put("count",10);
         mPresenter.getDoParams(MyUrls.BASE_FRIEND_NOTICE, FriendNoticeBean.class,map);
+        sousuo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Intent intent = new Intent(getContext(), InfoSelefriendActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -111,7 +132,5 @@ public class InfoItFragment extends BaseFragment<TechPresenter> {
 
     }
 
-    @OnClick(R.id.sousuo)
-    public void onViewClicked() {
-    }
+
 }

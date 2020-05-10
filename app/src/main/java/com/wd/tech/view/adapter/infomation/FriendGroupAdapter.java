@@ -55,7 +55,6 @@ public class FriendGroupAdapter extends RecyclerView.Adapter<FriendGroupAdapter.
             holder.iv.setImageResource(R.drawable.xia);
             holder.rc.setVisibility(View.GONE);
         }else {
-
             if (currentNumber==0){
                child=null;
             }else {

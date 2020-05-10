@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.wd.tech.R;
+import com.wd.tech.bean.CommUser0Bean;
 import com.wd.tech.bean.CommUserBean;
 import com.wd.tech.util.NetUtil;
 
@@ -23,10 +24,11 @@ import butterknife.ButterKnife;
  * function:
  */
 public class UserFollowAdapter extends RecyclerView.Adapter<UserFollowAdapter.ViewHolder> {
-    private CommUserBean.ResultBean.CommunityUserVoBean list;
 
-    public UserFollowAdapter(CommUserBean.ResultBean.CommunityUserVoBean communityUserVo) {
 
+    private CommUser0Bean.ResultBean.CommunityUserVoBean list;
+
+    public UserFollowAdapter(CommUser0Bean.ResultBean.CommunityUserVoBean communityUserVo) {
         list = communityUserVo;
     }
 

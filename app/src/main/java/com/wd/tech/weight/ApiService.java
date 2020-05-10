@@ -40,7 +40,6 @@ public interface ApiService {
     @Multipart
     Observable<ResponseBody> postFileParams(@Url String url,@PartMap HashMap<String, RequestBody> map);
     @POST //post无参
-    @FormUrlEncoded
     Observable<ResponseBody> postNoParams(@Url String url);
     @POST //post有参
     @FormUrlEncoded

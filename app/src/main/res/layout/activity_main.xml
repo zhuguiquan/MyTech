@@ -10,6 +10,7 @@
 
     <LinearLayout
         android:id="@+id/cont"
+
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
@@ -108,16 +109,31 @@
                 android:text="诗和远方"
                 android:id="@+id/name"
                 android:layout_marginTop="@dimen/dp_90"
-                android:layout_marginLeft="@dimen/dp_120"
-                android:textSize="@dimen/sp_14"
+                android:layout_marginLeft="@dimen/dp_100"
+                android:textSize="@dimen/sp_16"
                 android:textColor="#fff"/>
+            <ImageView
+                android:id="@+id/qiandao"
+                android:src="@drawable/my_icon_sign_n_xxhdpi"
+                android:layout_marginLeft="@dimen/dp_245"
+                android:layout_marginTop="@dimen/dp_70"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></ImageView>
+            <TextView
+                android:text="签到"
+                android:textColor="#fff"
+                android:layout_marginTop="@dimen/dp_100"
+                android:layout_marginLeft="@dimen/dp_245"
+                android:textSize="@dimen/sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></TextView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="诗和远方"
                 android:id="@+id/dersign"
-                android:layout_marginTop="@dimen/dp_130"
-                android:layout_marginLeft="@dimen/dp_120"
+                android:layout_marginTop="@dimen/dp_120"
+                android:layout_marginLeft="@dimen/dp_100"
                 android:textSize="@dimen/sp_14"
                 android:textColor="#fff"/>
             <LinearLayout

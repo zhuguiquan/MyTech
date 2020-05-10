@@ -10,7 +10,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.shequ.CommUserActivity"></activity>
+        <activity android:name=".view.activity.my.MyDateActivity"></activity>
+        <activity android:name=".view.activity.my.MyActivity" />
+        <activity android:name=".view.activity.my.TaskListActivity" />
+        <activity android:name=".view.activity.xiaoxi.CreateGroupActivity" />
+        <activity android:name=".view.activity.xiaoxi.UserInfoMsActivity" />
+        <activity android:name=".view.activity.xiaoxi.InfoSelefriendActivity" />
+        <activity android:name=".view.activity.my.MyPostActivity" />
+        <activity android:name=".view.activity.my.TongZhiActivity" />
+        <activity android:name=".view.activity.my.GuanZhuActivity" />
+        <activity android:name=".view.activity.my.ShoCangActivity" />
+        <activity android:name=".view.activity.shequ.CommUserActivity" />
         <activity android:name=".view.activity.shequ.WritePostActivity" />
         <activity android:name=".view.activity.shequ.WriteFilmActivity" />
         <activity android:name=".view.activity.my.SheActivity" />
@@ -27,18 +37,18 @@
         <activity android:name=".view.activity.RegisterActivity" />
         <activity android:name=".view.activity.LoginActivity" />
         <activity android:name=".arc.LivenessActivity" />
-        <activity android:name=".view.activity.SearchActivity"></activity>
-        <activity android:name=".view.activity.SearchListActivity"></activity>
-
+        <activity android:name=".view.activity.SearchActivity" />
+        <activity android:name=".view.activity.SearchListActivity" />
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 </manifest>

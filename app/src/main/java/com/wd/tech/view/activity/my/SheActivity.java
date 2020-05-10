@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
+import com.wd.tech.base.BaseHuaActivity;
 import com.wd.tech.bean.UserInfoBean;
 import com.wd.tech.presenter.TechPresenter;
 import com.wd.tech.util.NetUtil;
@@ -23,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SheActivity extends BaseActivity<TechPresenter> {
+public class SheActivity extends BaseHuaActivity<TechPresenter> {
 
     @BindView(R.id.she_login)
     TextView sheLogin;
@@ -47,6 +48,8 @@ public class SheActivity extends BaseActivity<TechPresenter> {
     TextView userVip;
     @BindView(R.id.user_facebind)
     TextView userFacebind;
+    @BindView(R.id.user_updatepwd)
+    TextView userUpdatepwd;
 
     private SharedPreferences sp;
 
@@ -88,25 +91,31 @@ public class SheActivity extends BaseActivity<TechPresenter> {
         if (o instanceof UserInfoBean && TextUtils.equals("0000", ((UserInfoBean) o).getStatus())) {
             UserInfoBean.ResultBean result = ((UserInfoBean) o).getResult();
             NetUtil.getInstance().getCiclePhoto(result.getHeadPic(), userHeadprice);
-            userBritary.setText(result.getBirthday()+"");
-            userFacebind.setText(result.getWhetherFaceId()+"");
-            userJifen.setText(result.getIntegral()+"");
-            userName.setText(result.getNickName()+"");
+            userBritary.setText(result.getBirthday() + "");
+            userFacebind.setText(result.getWhetherFaceId() + "");
+            userJifen.setText(result.getIntegral() + "");
+            userName.setText(result.getNickName() + "");
             int sex = result.getSex();
-            if(sex==1){
+            if (sex == 1) {
                 userSex.setText("男");
-            }else{
+            } else {
                 userSex.setText("女");
             }
             int whetherFaceId = result.getWhetherFaceId();
-            if(whetherFaceId==1){
-                userVip.setText("已绑定");
-            }else{
-                userVip.setText("未绑定");
+            if (whetherFaceId == 1) {
+                userFacebind.setText("已绑定");
+            } else {
+                userFacebind.setText("未绑定");
+            }
+            int whetherVip = result.getWhetherVip();
+            if (whetherVip == 1) {
+                userVip.setText("是");
+            } else {
+                userVip.setText("否");
             }
 
-            userPhone.setText(result.getPhone()+"");
-            userYouxiang.setText(result.getEmail()+"");
+            userPhone.setText(result.getPhone() + "");
+            userYouxiang.setText(result.getEmail() + "");
         }
     }
 
@@ -116,9 +125,7 @@ public class SheActivity extends BaseActivity<TechPresenter> {
     }
 
 
-
-
-    @OnClick({R.id.user_qianming, R.id.user_facebind,R.id.she_login})
+    @OnClick({R.id.user_qianming, R.id.user_facebind, R.id.she_login,R.id.user_updatepwd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.user_qianming:
@@ -133,6 +140,10 @@ public class SheActivity extends BaseActivity<TechPresenter> {
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.user_updatepwd:
+                break;
         }
     }
+
+
 }

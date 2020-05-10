@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.wd.tech.R;
 import com.wd.tech.base.BaseHuaActivity;
+import com.wd.tech.bean.CommUser0Bean;
 import com.wd.tech.bean.CommUserBean;
 import com.wd.tech.bean.CommunityZanBean;
 import com.wd.tech.presenter.TechPresenter;
@@ -47,7 +48,7 @@ public class CommUserActivity extends BaseHuaActivity<TechPresenter> {
     RecyclerView rc;
     private int uid;
     private Dialog dialog;
-    private CommUserBean.ResultBean.CommunityUserVoBean communityUserVo;
+    private CommUser0Bean.ResultBean.CommunityUserVoBean communityUserVo;
 
     @Override
     protected void initData() {
@@ -67,6 +68,7 @@ public class CommUserActivity extends BaseHuaActivity<TechPresenter> {
             map.put("page",1);
             map.put("count",10);
             mPresenter.getDoParams(MyUrls.BASE_USER_COM, CommUserBean.class,map);
+            mPresenter.getDoParams(MyUrls.BASE_USER_COM, CommUser0Bean.class,map);
         }
         changePic();
     }
@@ -88,8 +90,8 @@ public class CommUserActivity extends BaseHuaActivity<TechPresenter> {
 
     @Override
     public void onSuccess(Object o) {
-        if (o instanceof CommUserBean&& TextUtils.equals("0000",((CommUserBean) o).getStatus())){
-            List<CommUserBean.ResultBean> result = ((CommUserBean) o).getResult();
+        if (o instanceof CommUser0Bean&&TextUtils.equals("0000",((CommUser0Bean) o).getStatus())){
+            List<CommUser0Bean.ResultBean> result = ((CommUser0Bean) o).getResult();
             communityUserVo = result.get(0).getCommunityUserVo();
             UserFollowAdapter followAdapter = new UserFollowAdapter(communityUserVo);
             followAdapter.setOnClickListener(new UserFollowAdapter.OnClickListener() {
@@ -106,14 +108,14 @@ public class CommUserActivity extends BaseHuaActivity<TechPresenter> {
                     SwipeMenuItem addFriendItem = new SwipeMenuItem(CommUserActivity.this)
                             .setBackground(R.drawable.blue)
                             .setText("+好友")
-                            .setHeight(ViewGroup.LayoutParams.MATCH_PARENT)//设置高，这里使用match_parent，就是与item的高相同
-                            .setWidth(80);//设置宽
+                            .setHeight(60)//设置高，这里使用match_parent，就是与item的高相同
+                            .setWidth(100);//设置宽
                     swipeRightMenu.addMenuItem(addFriendItem);//设置右边的侧滑
                     SwipeMenuItem deleteItem = new SwipeMenuItem(CommUserActivity.this)
                             .setBackground(R.drawable.red)
                             .setText("+关注")
-                            .setHeight(ViewGroup.LayoutParams.MATCH_PARENT)
-                            .setWidth(80);//设置宽
+                            .setHeight(60)
+                            .setWidth(100);//设置宽
                     swipeRightMenu.addMenuItem(deleteItem);
                 }
             });
@@ -123,14 +125,15 @@ public class CommUserActivity extends BaseHuaActivity<TechPresenter> {
                 public void onItemClick(SwipeMenuBridge menuBridge) {
                     //不关闭可能导致菜单错乱
                     menuBridge.closeMenu();
-                    int userId = communityUserVo.getUserId();
+                    int userId = CommUserActivity.this.communityUserVo.getUserId();
                 }
             });
-            if (followAdapter != null) {
-                swrc.setAdapter(followAdapter);
-            }
+            swrc.setAdapter(followAdapter);
+            Glide.with(ivTitle).load( this.communityUserVo.getHeadPic()).into(ivTitle);
+        }
+        if (o instanceof CommUserBean&& TextUtils.equals("0000",((CommUserBean) o).getStatus())){
+            List<CommUserBean.ResultBean> result = ((CommUserBean) o).getResult();
 
-            Glide.with(ivTitle).load( communityUserVo.getHeadPic()).into(ivTitle);
             CommUserAdapter adapter = new CommUserAdapter(result.get(0).getCommunityUserPostVoList());
             adapter.setOnClickListener(new CommUserAdapter.OnClickListener() {
                 @Override

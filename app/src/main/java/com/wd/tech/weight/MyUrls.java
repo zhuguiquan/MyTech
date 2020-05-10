@@ -49,6 +49,34 @@ public interface MyUrls {
     String BASE_FILM="techApi/community/verify/v1/addCommunityComment";
     //查询用户帖子
     String BASE_USER_COM="techApi/community/verify/v1/findUserPostById";
+    //收藏
+    String Base_Info_Collection="techApi/user/verify/v1/findAllInfoCollection";// get page  count
+    //关注
+    String Base_Find_Follow="techApi/user/verify/v1/findFollowUserList";// get  page count
+    //通知
+    String Base_Tong_Zhi="techApi/tool/verify/v1/findSysNoticeList"; // get  page  count
+    //我的帖子
+    String MY_Post = "techApi/community/verify/v1/findMyPostById";
+    //删除帖子
+    String DELETE_POST = "techApi/community/verify/v1/deletePost";
+    //根据手机号
+    String BASE_SEUSER_BYPHONE="techApi/user/verify/v1/findUserByPhone";
+    //创建群聊
+    String BASE_CREATE_GROUP="techApi/group/verify/v1/createGroup";
+    //查询用户任务列表
+    String TASK_LIST = "techApi/user/verify/v1/findUserTaskList";
+    //做任务
+    String DO_TASK = "techApi/user/verify/v1/doTheTask";
+    //签到
+    String USER_SIGN = "techApi/user/verify/v1/userSign";
+    //当天签到状态
+    String FIND_USER_SIGN = "techApi/user/verify/v1/findUserSignStatus";
+    //查询当月签到日期
+    String FIND_RECORDING = "techApi/user/verify/v1/findUserSignRecording";
+
+    //查询所有加入的群组
+    String BASE_ALLGROUPS="techApi/group/verify/v1/findUserJoinedGroup";
+
 
 
 }
