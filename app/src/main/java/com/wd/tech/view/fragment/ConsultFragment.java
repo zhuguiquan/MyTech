@@ -32,6 +32,7 @@ import com.wd.tech.view.activity.SearchActivity;
 import com.wd.tech.view.adapter.RecommendListAdapter;
 import com.wd.tech.weight.MyUrls;
 import com.wd.tech.weight.OnClickItem;
+import com.wd.tech.weight.OnRecyclerItemClickListener;
 
 import java.util.AbstractList;
 import java.util.HashMap;
@@ -143,8 +144,9 @@ public class ConsultFragment extends BaseFragment<TechPresenter> {
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(getContext(), DetailActivity.class);
-                                Integer integer = Integer.valueOf(split[1]);
-                                intent.putExtra("id",integer);
+
+                                int i = Integer.parseInt(split[1]);
+                                intent.putExtra("id",i);
                                 getContext().startActivity(intent);
                             }
                         });
@@ -173,16 +175,17 @@ public class ConsultFragment extends BaseFragment<TechPresenter> {
                 homeXrecyclerview.setLayoutManager(linearLayoutManager);
                 RecommendListAdapter recommendListAdapter = new RecommendListAdapter(consultlist);
                 homeXrecyclerview.setAdapter(recommendListAdapter);
-                recommendListAdapter.setOnClickItem(new OnClickItem() {
+                recommendListAdapter.setListener(new OnRecyclerItemClickListener() {
                     @Override
-                    public void onClickInt(int id) {
+                    public void onItemClick(String s) {
+                        int i = Integer.parseInt(s);
                         Intent intent = new Intent(getActivity(), DetailActivity.class);
-                        intent.putExtra("id", id);
+                        intent.putExtra("id",i);
                         startActivity(intent);
                     }
 
                     @Override
-                    public void onClickString(String string) {
+                    public void onLongItemClick(String s) {
 
                     }
                 });

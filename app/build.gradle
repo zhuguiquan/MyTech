@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {//这个地方可以写成 release
+            storeFile file('tech.keystore')
+            keyAlias "tech"
+            storePassword "123456"
+            keyPassword "123456"
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
@@ -113,6 +121,8 @@ dependencies {
     implementation project(path: ':swipelibrary')
 
     implementation 'com.android.support:multidex:1.0.3'
+
+    implementation(name: 'alipaySdk-15.7.5-20200422171619', ext: 'aar')
 
 
     //流式布局

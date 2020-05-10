@@ -7,7 +7,7 @@ import com.wd.tech.weight.MyApp;
 
 /**
  * date:2020/3/19 0019
- * author:王江伟(Administrator)
+ * author:王彦敏(Administrator)
  * function:微信工具类
  */
 public class WXUtils {

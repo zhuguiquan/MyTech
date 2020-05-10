@@ -25,7 +25,6 @@ allprojects {
         flatDir {
             dirs 'libs'
         }
-
     }
 }
 

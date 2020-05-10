@@ -11,6 +11,8 @@ public interface MyUrls {
     String BASE_LOGIN="techApi/user/v1/login";
     String REGISTER_URL = "techApi/user/v1/register";//注册  post请求 参数 phone nickName pwd（加密后的）
     String BASE_BYID = "techApi/user/verify/v1/getUserInfoByUserId";//根据用户id查询信息  getHeader请求
+
+    //资讯
     String CONSULT_BANNER="techApi/information/v1/bannerShow";//轮播图展示 get无参
     String CONSULT_CONSULTLIST="techApi/information/v1/infoRecommendList";//资讯推荐列表展示
     String CONSULT_DETAILS="techApi/information/v1/findInformationDetails";//资讯详情展示
@@ -25,6 +27,12 @@ public interface MyUrls {
     String CONSULT_TITLE="techApi/information/v1/findInformationByTitle";//根据标题模糊查询
     String CONSULT_ADVERTISING="techApi/information/v1/findInfoAdvertising";//资讯广告
     String CONSULT_INTEGRAL="techApi/information/verify/v1/infoPayByIntegral";//积分兑换
+    //VIP
+    String FIND_USER_INTEGRAL="techApi/user/verify/v1/findUserIntegral";//查询用户积分
+    String FIND_VIP_COMMODITY="techApi/tool/v1/findVipCommodityList";//查询所有会员商品
+    String BUY_VIP = "techApi/tool/verify/v1/buyVip";//用户购买VIP
+    String PAY_VIP = "techApi/tool/verify/v1/pay";//支付
+
     //微信登录
     String WEIXINLOG_URL="techApi/user/v1/weChatLogin";
     //查询好友通知
