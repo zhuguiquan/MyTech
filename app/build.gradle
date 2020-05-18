@@ -18,7 +18,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             //选择要添加的对应cpu类型的.so库。   // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
@@ -26,8 +26,12 @@ android {
             abiFilters 'armeabi' //'armeabi-v7a',  'arm64-v8a'
 //            moduleName "app"
         }
-        multiDexEnabled true
 
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "d4cf77f0d3b85e9edc540dee", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default" //暂时填写默认值即可.
+        ]
     }
 
     buildTypes {
@@ -121,7 +125,7 @@ dependencies {
     implementation project(path: ':swipelibrary')
 
     implementation 'com.android.support:multidex:1.0.3'
-
+//支付宝
     implementation(name: 'alipaySdk-15.7.5-20200422171619', ext: 'aar')
 
 
@@ -131,5 +135,9 @@ dependencies {
 
 //支付宝
     implementation(name: 'alipaySdk-15.7.5-20200422171619', ext: 'aar')
-
+    //解决方法过多
+    implementation 'com.android.support:multidex:1.0.3'
+    //极光
+    implementation 'cn.jiguang.sdk:jmessage:2.9.0'  // 此处以JMessage 2.9.0 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:2.0.0'  // 此处以JCore 2.0.0 版本为例。
 }

@@ -25,6 +25,7 @@ import com.wd.tech.bean.my.FindSingRecordingBean;
 import com.wd.tech.presenter.TechPresenter;
 import com.wd.tech.util.NetUtil;
 import com.wd.tech.view.activity.my.GuanZhuActivity;
+import com.wd.tech.view.activity.my.IntegralActivity;
 import com.wd.tech.view.activity.my.MyDateActivity;
 import com.wd.tech.view.activity.my.MyPostActivity;
 import com.wd.tech.view.activity.my.SheActivity;
@@ -281,6 +282,7 @@ public class MainActivity extends BaseActivity<TechPresenter> {
                 startActivity(this, TongZhiActivity.class);
                 break;
             case R.id.my_jifen:
+                startActivity(this, IntegralActivity.class);
                 break;
             case R.id.my_renwu:
                 startActivity(this, TaskListActivity.class);

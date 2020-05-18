@@ -245,7 +245,7 @@ public class PayVipActivity extends BaseActivity<TechPresenter> {
                 break;
             case R.id.pay_bt:
                 //创建订单
-                String s1 = "1373"+resultBean.getCommodityId()+"tech";
+                String s1 = "1602"+resultBean.getCommodityId()+"tech";
                 String s11 = MD5Util.getInstance().MD5(s1);
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("commodityId",resultBean.getCommodityId());

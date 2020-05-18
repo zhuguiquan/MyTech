@@ -19,6 +19,7 @@ import com.wd.tech.R;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.bean.infomation.FriendNoticeBean;
 import com.wd.tech.presenter.TechPresenter;
+import com.wd.tech.view.activity.xiaoxi.ChatMsgActivity;
 import com.wd.tech.view.activity.xiaoxi.InfoSelefriendActivity;
 import com.wd.tech.view.adapter.infomation.InfoItAdapter;
 import com.wd.tech.weight.MyUrls;
@@ -100,6 +101,16 @@ public class InfoItFragment extends BaseFragment<TechPresenter> {
             if (((FriendNoticeBean) o).getResult().size()>0){
                 List<FriendNoticeBean.ResultBean> result = ((FriendNoticeBean) o).getResult();
                 InfoItAdapter infoItAdapter = new InfoItAdapter(result);
+                infoItAdapter.setOnClickListener(new InfoItAdapter.OnClickListener() {
+                    @Override
+                    public void onClick(int friendId,String head,String nickName) {
+                        Intent intent = new Intent(getContext(), ChatMsgActivity.class);
+                        intent.putExtra("id",friendId);
+                        intent.putExtra("head",head);
+                        intent.putExtra("name",nickName);
+                        startActivity(intent);
+                    }
+                });
                 ifitRc.setSwipeMenuCreator(new SwipeMenuCreator() {
                     @Override
                     public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {

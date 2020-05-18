@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +33,8 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 
 public class LoginActivity extends BaseActivity<TechPresenter> {
     @BindView(R.id.phone)
@@ -36,7 +42,7 @@ public class LoginActivity extends BaseActivity<TechPresenter> {
     @BindView(R.id.pwd)
     EditText pwd;
     @BindView(R.id.eye)
-    ImageView eye;
+    CheckBox eye;
     @BindView(R.id.register)
     TextView register;
     @BindView(R.id.login)
@@ -49,7 +55,17 @@ public class LoginActivity extends BaseActivity<TechPresenter> {
 
     @Override
     protected void initData() {
-
+        eye.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    // 如果选中，显示密码
+                    eye.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                else
+                    // 否则隐藏密码
+                    eye.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        });
     }
 
     @Override
@@ -76,14 +92,37 @@ public class LoginActivity extends BaseActivity<TechPresenter> {
 
     @Override
     public void onSuccess(Object o) {
-        if (o instanceof LoginBean&& TextUtils.equals("0000",((LoginBean) o).getStatus())){
-            SharedPreferences.Editor edit = sp.edit();
-            edit.putBoolean("b",true);
-            edit.putInt("uid",((LoginBean) o).getResult().getUserId());
-            edit.putString("sid",((LoginBean) o).getResult().getSessionId());
-            Toast.makeText(this, ((LoginBean) o).getMessage(), Toast.LENGTH_SHORT).show();
-            edit.commit();
-            startActivity(this,MainActivity.class);
+        if (o instanceof LoginBean && TextUtils.equals("0000", ((LoginBean) o).getStatus())) {
+            LoginBean.ResultBean resultBean = ((LoginBean) o).getResult();
+            JMessageClient.login(resultBean.getPhone(), MyApp.s1, new BasicCallback() {
+                @Override
+                public void gotResult(int i, String s) {
+                    switch (i) {
+                        case 801003:
+                            Toast.makeText(LoginActivity.this, "极光用户名不存在", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 871301:
+                            Toast.makeText(LoginActivity.this, "极光密码格式错误", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 801004:
+                            Toast.makeText(LoginActivity.this, "极光密码错误", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 0:
+                            Toast.makeText(LoginActivity.this, "极光登陆成功", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                }
+            });
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("headPic", resultBean.getHeadPic());
+            editor.putString("nickName", resultBean.getNickName());
+            editor.putInt("uid", resultBean.getUserId());
+            editor.putString("phone", resultBean.getPhone());
+            editor.putString("sid", resultBean.getSessionId());
+            editor.putBoolean("b", true);
+            editor.commit();
+            startActivity(LoginActivity.this,MainActivity.class);
+            finish();
         }
     }
 
@@ -103,20 +142,18 @@ public class LoginActivity extends BaseActivity<TechPresenter> {
         startActivity(new Intent(LoginActivity.this, LivenessActivity.class));
     }
 
-    @OnClick({R.id.login_weixin,R.id.eye, R.id.register, R.id.login})
+    @OnClick({R.id.login_weixin, R.id.register, R.id.login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_weixin:
-//               if (MyApp.mWxApi.isWXAppInstalled()){
-//                   Toast.makeText(this, "没有安装微信", Toast.LENGTH_SHORT).show();
-//                   return;
-//               }
+                if (MyApp.mWxApi.isWXAppInstalled()){
+                   Toast.makeText(this, "没有安装微信", Toast.LENGTH_SHORT).show();
+                   return;
+               }
                 SendAuth.Req req = new SendAuth.Req();
                req.scope="snsapi_userinfo";
                req.state="diandi_wx_login";
                MyApp.mWxApi.sendReq(req);
-                break;
-            case R.id.eye:
                 break;
             case R.id.register:
                 startActivity(LoginActivity.this,RegisterActivity.class);

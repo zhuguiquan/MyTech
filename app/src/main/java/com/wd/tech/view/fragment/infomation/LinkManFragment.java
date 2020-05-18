@@ -1,7 +1,9 @@
 package com.wd.tech.view.fragment.infomation;
 
 import android.content.Intent;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -16,9 +18,12 @@ import com.wd.tech.bean.infomation.FriendGroupBean;
 import com.wd.tech.bean.infomation.FriendListBean;
 import com.wd.tech.bean.xiaoxi.GroupListBean;
 import com.wd.tech.presenter.TechPresenter;
+import com.wd.tech.view.activity.xiaoxi.ChatMsgActivity;
+import com.wd.tech.view.activity.xiaoxi.InfoSelefriendActivity;
 import com.wd.tech.view.adapter.GroupListAdapter;
 import com.wd.tech.view.adapter.InfoExpandAdapter;
 import com.wd.tech.view.adapter.infomation.FriendGroupAdapter;
+import com.wd.tech.view.adapter.xiaoxi.GroupChatActivity;
 import com.wd.tech.weight.MyUrls;
 
 import java.util.ArrayList;
@@ -101,11 +106,11 @@ public class LinkManFragment extends BaseFragment<TechPresenter> {
                 adapter.setChildClickListener(new InfoExpandAdapter.ChildClickListener() {
                     @Override
                     public void onChildClick(int id, String head, String name) {
-//                        Intent intent = new Intent(getContext(), ChatMsgActivity.class);
-//                        intent.putExtra("id", id);
-//                        intent.putExtra("head", head);
-//                        intent.putExtra("name", name);
-//                        startActivity(intent);
+                        Intent intent = new Intent(getContext(), ChatMsgActivity.class);
+                        intent.putExtra("id", id);
+                        intent.putExtra("head", head);
+                        intent.putExtra("name", name);
+                        startActivity(intent);
                     }
                 });
             }
@@ -124,10 +129,10 @@ public class LinkManFragment extends BaseFragment<TechPresenter> {
             groupListAdapter.setOnClickListener(new GroupListAdapter.OnClickListener() {
                 @Override
                 public void onClick(int id,String name) {
-//                    Intent intent = new Intent(getContext(), GroupChatActivity.class);
-//                    intent.putExtra("id",id);
-//                    intent.putExtra("name",name);
-//                    startActivity(intent);
+                    Intent intent = new Intent(getContext(), GroupChatActivity.class);
+                    intent.putExtra("id",id);
+                    intent.putExtra("name",name);
+                    startActivity(intent);
                 }
             });
             qunrc.setAdapter(groupListAdapter);
@@ -144,6 +149,8 @@ public class LinkManFragment extends BaseFragment<TechPresenter> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.query:
+                Intent intent = new Intent(getContext(), InfoSelefriendActivity.class);
+                startActivity(intent);
                 break;
             case R.id.qunzu:
                 isClosed=!isClosed;

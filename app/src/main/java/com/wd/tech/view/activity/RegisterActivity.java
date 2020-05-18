@@ -13,6 +13,7 @@ import com.wd.tech.base.BaseActivity;
 import com.wd.tech.bean.RegisterBean;
 import com.wd.tech.presenter.TechPresenter;
 import com.wd.tech.util.RsaCoder;
+import com.wd.tech.weight.MyApp;
 import com.wd.tech.weight.MyUrls;
 
 import java.util.HashMap;
@@ -20,6 +21,8 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 
 
 public class RegisterActivity extends BaseActivity<TechPresenter> {
@@ -35,6 +38,7 @@ public class RegisterActivity extends BaseActivity<TechPresenter> {
     TextView loginRegister;
     @BindView(R.id.register_bt)
     Button registerBt;
+    private String mPhone;
 
     @Override
     protected void initData() {
@@ -63,12 +67,33 @@ public class RegisterActivity extends BaseActivity<TechPresenter> {
 
     @Override
     public void onSuccess(Object o) {
-        if (o instanceof RegisterBean && TextUtils.equals("0000", ((RegisterBean) o).getStatus())) {
-            Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+        if (o instanceof RegisterBean&&TextUtils.equals("0000",((RegisterBean) o).getStatus())){
+            //注册极光
+            JMessageClient.register(mPhone, MyApp.s1, new BasicCallback() {
+                @Override
+                public void gotResult(int i, String s) {
+                    switch (i) {
+                        case 0:
+                            Toast.makeText(RegisterActivity.this, "极光注册成功", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 898001:
+                            Toast.makeText(RegisterActivity.this, "极光用户名已存在", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 871301:
+                            Toast.makeText(RegisterActivity.this, "极光密码格式错误", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 871304:
+                            Toast.makeText(RegisterActivity.this, "极光密码错误", Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(RegisterActivity.this, s, Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                }
+            });
+            Toast.makeText(this, ((RegisterBean) o).getMessage(), Toast.LENGTH_SHORT).show();
             startActivity(this,LoginActivity.class);
             finish();
-        } else {
-            Toast.makeText(this, "注册失败", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -82,13 +107,13 @@ public class RegisterActivity extends BaseActivity<TechPresenter> {
     @OnClick(R.id.register_bt)
     public void onViewClicked() {
         String name = registerName.getText().toString().trim();
-        String phone = registerPhone.getText().toString().trim();
+        mPhone = registerPhone.getText().toString().trim();
         String pwd = registerPwd.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "名字不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(phone)) {
+        if (TextUtils.isEmpty(mPhone)) {
             Toast.makeText(this, "手机号不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -103,11 +128,11 @@ public class RegisterActivity extends BaseActivity<TechPresenter> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        boolean matches = Pattern.matches(PHONE, phone);
+        boolean matches = Pattern.matches(PHONE, mPhone);
         if (matches){
             Log.i("xxx", s);
             HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("phone", phone);
+            hashMap.put("phone", mPhone);
             hashMap.put("nickName", name);
             hashMap.put("pwd",s);
             mPresenter.postDoParams(MyUrls.REGISTER_URL, RegisterBean.class, hashMap);

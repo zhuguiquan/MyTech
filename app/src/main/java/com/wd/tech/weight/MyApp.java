@@ -14,6 +14,10 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wd.tech.Constants;
 
+import cn.jpush.im.android.api.JMessageClient;
+
+import static cn.jpush.im.android.api.JMessageClient.FLAG_NOTIFY_SILENCE;
+
 /**
  * date:2020/4/18
  * author:朱贵全(Lenovo)
@@ -22,14 +26,21 @@ import com.wd.tech.Constants;
 public class MyApp extends Application {
     public static Context mContext;
     public static IWXAPI mWxApi;
+    public static String s1="d4cf77f0d3b85e9edc540dee";
     @Override
     public void onCreate() {
         super.onCreate();
+
         //侧滑关闭
         SlideFinishManager.getInstance().init(this);
         Fresco.initialize(this);
         registerTowX();
         mContext=this;
+        //初始化极光
+        JMessageClient.init(this, true);
+        JMessageClient.setDebugMode(true);
+        //通知管理,通知栏开启，其他关闭
+        JMessageClient.setNotificationFlag(FLAG_NOTIFY_SILENCE);
     }
     private void initArcFace() {
         new AcrFaceManagerBuilder().setContext(this)

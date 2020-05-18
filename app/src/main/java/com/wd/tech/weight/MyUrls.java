@@ -81,10 +81,54 @@ public interface MyUrls {
     String FIND_USER_SIGN = "techApi/user/verify/v1/findUserSignStatus";
     //查询当月签到日期
     String FIND_RECORDING = "techApi/user/verify/v1/findUserSignRecording";
+    //查询用户积分
+    String USER_INTEGRAL = "techApi/user/verify/v1/findUserIntegral";
+    //用户积分详情
+    String USER_RECORD = "techApi/user/verify/v1/findUserIntegralRecord";
+    //查询连续签到日期
+    String SIGN_DAY = "techApi/user/verify/v1/findContinuousSignDays";
 
+    //查询好友信息
+    String BASE_FRIENDINFO_ID="techApi/user/verify/v1/queryFriendInformation";
+    //查询好友对话记录
+    String BASE_CHAT="techApi/chat/verify/v1/findDialogueRecordPageList";
+    //查询好友聊天记录
+    String BASE_CHATHISTORY="techApi/chat/verify/v1/findChatRecordPageList";
+    //发送消息
+    String BASE_SEND_MSG="techApi/chat/verify/v1/sendMessage";
     //查询所有加入的群组
     String BASE_ALLGROUPS="techApi/group/verify/v1/findUserJoinedGroup";
-
-
+    //查看群组聊天记录
+    String BASE_GROUP_HISTORY="techApi/group/verify/v1/findGroupChatRecordPage";
+    //查询群组详细信息
+    String BASE_GROUP_DETAILS="techApi/group/verify/v1/findGroupInfo";
+    //退出群组
+    String BASE_BACK_GROUP="techApi/group/verify/v1/retreat";
+    //解散群组
+    String BASE_DELETE_GROUP="techApi/group/verify/v1/disbandGroup";
+    //修改群简介
+    String BASE_UPDATE_JIANJIE="techApi/group/verify/v1/modifyGroupDescription";
+    //申请进群
+    String BASE_ADD_GROUP="techApi/group/verify/v1/applyAddGroup";
+    //群通知
+    String BASE_GROUP_NOTICE="techApi/group/verify/v1/findGroupNoticePageList";
+    //审核群申请
+    String BASE_AUDIT="techApi/group/verify/v1/reviewGroupApply";
+    //检测是否是我的好友
+    String BASE_ISFRIEND="techApi/chat/verify/v1/checkMyFriend";
+    //添加好友
+    String BASE_ADD_FRIEND="techApi/chat/verify/v1/addFriend";
+    //查询群组所有用户
+    String BASE_QUERY_ALLUSERS="techApi/group/verify/v1/findGroupMemberList";
+    //调整群成员角色
+    String BASE_UPDATE_GROUP="techApi/group/verify/v1/modifyPermission";
+    //移除群成员
+    String BASE_DETELE_GROUPUSER="techApi/group/verify/v1/removeGroupMember";
+    //邀请加群
+    String BASE_INVITE_GROUP="techApi/group/verify/v1/inviteAddGroup";
+    //删除好友
+    String BASE_DELETE_FRIEND="techApi/chat/verify/v1/deleteFriendRelation";
+    //删除好友聊天记录
+    String BASE_DELETE_HISTORY="techApi/chat/verify/v1/deleteChatRecord";
 
 }

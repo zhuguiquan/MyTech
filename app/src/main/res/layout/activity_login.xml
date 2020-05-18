@@ -7,9 +7,6 @@
     android:background="@drawable/bitmap"
     android:orientation="vertical"
     tools:context=".view.activity.LoginActivity">
-
-
-
     <EditText
         android:drawableLeft="@mipmap/login_icon_phone_n_hdpi"
         android:layout_width="@dimen/dp_300"
@@ -33,12 +30,15 @@
             android:layout_width="@dimen/dp_270"
             android:layout_height="wrap_content"
             android:id="@+id/pwd"
+            android:password="true"
             android:hint="   登录密码"
             android:textColorHint="#ffffff"
             android:textColor="#ffffff"
             android:paddingBottom="@dimen/dp_15"/>
-        <ImageView
+        <CheckBox
             android:layout_width="@dimen/dp_20"
+            android:checked="false"
+            android:button="@null"
             android:layout_height="@dimen/dp_15"
             android:layout_gravity="center_vertical"
             android:id="@+id/eye"
